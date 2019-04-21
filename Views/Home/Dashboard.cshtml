@@ -1,0 +1,59 @@
+@model List<Wedding>
+
+<style>
+    table {
+    border-collapse: collapse;
+}
+th {
+    background-color: #ccc;
+    padding: 2px;
+}
+table, th, td {
+    border: 1px solid black;
+}
+
+tr:nth-child(even) {background-color: #f2f2f2;}
+
+td {
+    padding: 5px;
+    text-align: left;
+}
+</style>
+
+
+<h1>Welcome to the Wedding Planner</h1>
+<a href="logout">Log Out</a>
+<hr>
+<table>
+    <tr>
+        <th>Wedding</th>
+        <th>Date</th>
+        <th>Guest</th>
+        <th>Action</th>
+    </tr>
+
+@foreach (Wedding wedding in Model)
+{
+    <tr>
+        <td><a href="/info/@wedding.WeddingId">@wedding.WedderOne & @wedding.WedderTwo</a></td>
+        <td>@wedding.Date.ToString("MMM dd, yyyy")</td>
+        <td>@wedding.Guests.Count</td>
+        @if (wedding.UserId == @ViewBag.idUser)
+        {
+            <td><a href="/delete/@wedding.WeddingId">Delete</a></td>
+        }
+        else if(wedding.Guests.Any(g => g.UserId == @ViewBag.idUser))
+        {
+            <td><a href="/unrsvp/@wedding.WeddingId">Un-RSVP</a></td>
+        }
+        else
+        {
+            <td><a href="/rsvp/@wedding.WeddingId">RSVP</a></td>
+        }
+    </tr>
+}
+</table>
+<br>
+<form action="create">
+    <input type="submit" value="New Wedding">
+</form>

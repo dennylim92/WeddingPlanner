@@ -1,0 +1,40 @@
+@model Wedding
+<style>
+    .container{
+        height: 550px;
+        width: 1200px;
+    }
+
+    .main{
+        height: 600px;
+        width: 500px;
+        display: inline-block;
+        vertical-align: top;
+    }
+</style>
+
+<div class="container">
+    <div class="main">
+        <h1>@Model.WedderOne and @Model.WedderTwo's Wedding</h1>
+        <a asp-action="Dashboard">Dashboard</a>
+        <a href="logout">Log Out</a>
+
+        <h3>Date: @Model.Date.ToString("MMMM dd, yyyy")</h3>
+
+        <h3>Guests:</h3>
+        @foreach(var guest in Model.Guests)
+        {
+            <p>@guest.Person.FirstName @guest.Person.LastName</p>
+        }
+    </div>
+
+    <div class="main">
+        <iframe
+            width="450"
+            height="450"
+            frameborder="0" style="border:0"
+            src="https://www.google.com/maps/embed/v1/place?key=AIzaSyDvxBbe3nbNCcnqecuaaZ5yCQtt5CEnNPU
+            &q=@Model.Location.Replace(' ','+')" allowfullscreen>
+        </iframe>
+    </div>
+</div>
