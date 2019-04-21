@@ -1,0 +1,4 @@
+.vscode
+obj
+bin
+/Views/Home/WeddingInfo.cshtml
